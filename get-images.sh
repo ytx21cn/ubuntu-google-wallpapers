@@ -2,6 +2,9 @@ page_name="index.html"
 source="https://design.google/library/youtube-visioning/"
 dest_dir="images"
 
+# change to correct directory
+cd "$(realpath "$(dirname "$0")")"
+
 wget -O "$page_name" "$source"
 wget_exit_code=$?
 # error checking: make sure that the webpage is obtained
