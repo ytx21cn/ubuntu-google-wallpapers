@@ -18,3 +18,5 @@ wget -O "$page_name" "$source"
 	# -i -: specify input tile to be stdin
 	# -P: download to given directory
 grep -Ein ".*<img.*src=\".*" "$page_name" | sed -E 's/.*<img.*src="([^"]*)".*>/\1/' | wget -i - -P "./$dest_dir"
+
+rm "$page_name"
