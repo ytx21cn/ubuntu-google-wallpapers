@@ -2,10 +2,19 @@ page_name="index.html"
 source="https://design.google/library/youtube-visioning/"
 dest_dir="images"
 
+wget -O "$page_name" "$source"
+wget_exit_code=$?
+# error checking: make sure that the webpage is obtained
+if [ $wget_exit_code -ne 0 ]
+then
+	rm "$page_name"
+	echo -e "ERROR: failed to get $source\nNow exiting."
+	exit
+fi
+
 rm -r "./$dest_dir"
 mkdir -p "./$dest_dir"
 
-wget -O "$page_name" "$source"
 
 # first command grep: select all images represented by <img /> tags
 	# E: extended regular expression; i: case insensitive; n: show line numbers
