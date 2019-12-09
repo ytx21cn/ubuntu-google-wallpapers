@@ -12,7 +12,7 @@ if [ $wget_exit_code -ne 0 ]
 then
 	rm "$page_name"
 	echo -e "ERROR: failed to get $source\nNow exiting."
-	exit
+	exit -1
 fi
 
 rm -r "./$dest_dir"
