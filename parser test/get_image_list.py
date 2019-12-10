@@ -1,6 +1,6 @@
 import os, subprocess as sp
 from sys import stderr
-from img_parser import get_images
+from img_parser import get_images_info
 
 
 def download_from_source(source_url, output_doc='index.html'):
@@ -19,8 +19,8 @@ def main():
         source_url = source.read()
     source_html_filename = download_from_source(source_url)
 
-    # get inamges
-    images = get_images(source_html_filename)
+    # get images
+    images = get_images_info(source_html_filename)
     for image in images:
         print(vars(image))
 

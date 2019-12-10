@@ -4,10 +4,10 @@ from html.parser import HTMLParser
 # parse all <img> tags in an HTML file
 
 
-class Image:
+class ImageInfo:
     def __init__(self, attrs):
         """
-        Initialize a image using @attrs
+        Initialize the information of a image using @attrs
         where @attrs comes from HTMLParser.handle_starttag(tag, attrs)
         """
         attrs_dict = dict(attrs)
@@ -18,7 +18,7 @@ class Image:
 class ImgParser(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
-        self.images = []
+        self.images_info = []
 
     def handle_starttag(self, tag, attrs):
         """
@@ -26,14 +26,14 @@ class ImgParser(HTMLParser):
         We only handle <img ... /> tags in this parser
         """
         if tag == 'img':
-            new_image = Image(attrs)
-            self.images.append(new_image)
+            new_image_info = ImageInfo(attrs)
+            self.images_info.append(new_image_info)
 
 
-def get_images(html_file_name):
+def get_images_info(html_file_name):
     with open(html_file_name) as source:
         source_content = source.read()
         parser = ImgParser()
         parser.feed(source_content)
-        return parser.images
+        return parser.images_info
 
