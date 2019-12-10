@@ -1,6 +1,7 @@
 from html.parser import HTMLParser
 
-# An example to parse all images from an HTML file
+# HTML image parser
+# parse all <img> tags in an HTML file
 
 
 class Image:
@@ -36,13 +37,3 @@ def get_images(html_file_name):
         parser.feed(source_content)
         return parser.images
 
-
-def main():
-    html_file_name = 'index.html'
-    images = get_images(html_file_name)
-    for image in images:
-        print(vars(image))
-
-
-if __name__ == '__main__':
-    main()
