@@ -6,9 +6,9 @@ from img_parser import get_images_info
 def download_html_page(source_url, output_doc='index.html'):
     wget_exit_code = sp.call(['wget', '-O', output_doc, source_url])
     if wget_exit_code != 0:
-        print('ERROR: failed to download %s\n' % source_url, stderr)
+        print('ERROR: failed to download %s\n' % source_url, file=stderr)
         exit(-1)
-    print('Successfully downloaded: %s\n' % source_url, stderr)
+    print('Successfully downloaded: %s\n' % source_url, file=stderr)
     return output_doc
 
 
