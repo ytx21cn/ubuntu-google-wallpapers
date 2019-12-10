@@ -3,21 +3,21 @@ from sys import stderr
 from img_parser import get_images_info
 
 
-def download_from_source(source_url, output_doc='index.html'):
+def download_html_page(source_url, output_doc='index.html'):
     wget_exit_code = sp.call(['wget', '-O', output_doc, source_url])
     if wget_exit_code != 0:
         print('ERROR: failed to download %s\n' % source_url, stderr)
         exit(-1)
-    print('Successfully downloaded: %s\n', stderr)
+    print('Successfully downloaded: %s\n' % source_url, stderr)
     return output_doc
 
 
 def main():
     # get the url to download from
-    source_txt = 'source.txt'
-    with open(source_txt) as source:
-        source_url = source.read()
-    source_html_filename = download_from_source(source_url)
+    url_container_path = 'source.txt'
+    with open(url_container_path) as url_container:
+        source_url = url_container.read()
+    source_html_filename = download_html_page(source_url)
 
     # get images
     images = get_images_info(source_html_filename)
