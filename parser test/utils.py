@@ -13,6 +13,8 @@ def safe_remove(path: str):
 def get_py_relpath(py_file):
     return relpath(py_file, '.')
 
+
+# TODO: modify this function to download image files
 def download_html_page(source_url: str, output_doc: str = 'index.html'):
     """
     Using wget to download the specified @source_url
@@ -24,3 +26,4 @@ def download_html_page(source_url: str, output_doc: str = 'index.html'):
         exit(-1)
     print('Successfully downloaded: %s\n' % source_url, file=stderr)
     return output_doc
+

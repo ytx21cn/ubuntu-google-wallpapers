@@ -2,6 +2,7 @@ import sys
 from utils import safe_remove, get_py_relpath, download_html_page
 from img_parser import get_images_info
 
+
 def main():
     assert len(sys.argv) >= 2, '\n[Usage] python3 %s <URL to download>' % get_py_relpath(__file__)
 
