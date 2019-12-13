@@ -45,7 +45,7 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
 
     # handle the downloading in temporary directory
     with TD() as temp_dir:
-        # download
+        # download the requested file from @url
         wget_args = ['wget', url]
         if output_doc:
             temp_output_doc = '%s/%s' % (temp_dir, basename(str(output_doc)))
