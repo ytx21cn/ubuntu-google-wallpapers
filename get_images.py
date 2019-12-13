@@ -22,6 +22,7 @@ def main():
     # remove the downloaded html
     safe_remove(source_html_filename)
 
+    # download images
     target_dir = str(sys.argv[2]) if len(sys.argv) >= 3 else '.'
     index = 0
     for image_info in images_info:
