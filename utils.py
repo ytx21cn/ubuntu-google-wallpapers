@@ -11,8 +11,8 @@ def safe_remove(path: str):
         pass
 
 
-def safe_mkdir(dirname):
-    os.makedirs(str(dirname), exist_ok=True)
+def safe_mkdir(path: str):
+    os.makedirs(str(path), exist_ok=True)
 
 
 def get_py_relpath(py_file):

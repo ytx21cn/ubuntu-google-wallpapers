@@ -4,7 +4,9 @@ from img_parser import get_images_info
 
 
 def main():
-    assert len(sys.argv) >= 2, '\n[Usage] python3 %s <URL to download> [directory to save images]' % get_py_relpath(__file__)
+    assert len(sys.argv) >= 2,\
+        '\n[Usage] python3 %s <URL to download>' \
+        '[directory to save images]' % get_py_relpath(__file__)
 
     # get the URL to download from using command line argument, and download the page
     # exit if failed to download
@@ -24,6 +26,7 @@ def main():
 
     # download images
     target_dir = str(sys.argv[2]) if len(sys.argv) >= 3 else '.'
+    safe_mkdir(target_dir)
     index = 0
     for image_info in images_info:
         index += 1
