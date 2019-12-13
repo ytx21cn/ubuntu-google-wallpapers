@@ -10,4 +10,4 @@ get_images:
 
 .PHONY: clean
 clean:
-	rm -r "$(images_dir)"
+	-rm -r "$(images_dir)"
