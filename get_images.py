@@ -9,7 +9,7 @@ def main():
     # get the URL to download from using command line argument, and download the page
     # exit if failed to download
     source_url = sys.argv[1]
-    source_html_filename = download_from_url(source_url, output_doc='index.html')
+    source_html_filename = download_from_url(source_url, output_doc='index.html', exit_on_error=True)
 
     # get images URL and their descriptions
     images_info = get_images_info(source_html_filename)

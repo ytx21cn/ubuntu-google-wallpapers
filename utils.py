@@ -19,7 +19,7 @@ def get_py_relpath(py_file):
     return relpath(py_file, '.')
 
 
-def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
+def download_from_url(url: str, output_doc: str = None, target_dir: str = None, exit_on_error: bool = False):
     """
     Using wget to download the specified @source_url.
     Output rules:
@@ -35,13 +35,20 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
     def wget_helper(wget_args: list):
         """
         Helper: download the specified @url in parent function using @wget_args
-        If failed to download, then exit the process immediately
+        If failed to download, check if @exit_on_error is True
+            - If True: exit
+            - Otherwise: return False
+        If succeeded to download, return True
         """
         wget_exit_code = sp.call(wget_args)
         if wget_exit_code != 0:
             print('ERROR: failed to download %s\n' % url, file=stderr)
-            exit(-1)
+            if exit_on_error:
+                exit(-1)
+            else:
+                return False
         print('Successfully downloaded: %s\n' % url, file=stderr)
+        return True
 
     # handle the downloading in temporary directory
     with TD() as temp_dir:
@@ -52,10 +59,15 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
             wget_args += ['-O', temp_output_doc]
         else:
             wget_args += ['-P', temp_dir]
-        wget_helper(wget_args)
+        download_succeeded = wget_helper(wget_args)
 
-        # at this point wget_helper() should have successfully got the file
-        # otherwise the process should have already exited
+        if not download_succeeded:
+            if exit_on_error:
+                exit(-1)
+            else:
+                return ''
+
+        # at this point wget_helper() should have gathered file
         # now move the file in temporary directory to actual directory
         mv_args = ['mv', '-v']
 
