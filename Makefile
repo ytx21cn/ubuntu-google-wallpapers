@@ -1,4 +1,4 @@
-get_images_exec = main_get_images.py
+get_images_exec := main_get_images.py
 
 # This Makefile is not intended to be called directly.
 # Instead, one shall create a Makefile in a sub-directory to specify $source and $images_dir, and call this Makefile
