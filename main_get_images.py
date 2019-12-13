@@ -1,5 +1,6 @@
 import sys
-from utils import safe_remove, safe_mkdir, get_py_relpath, download_from_url
+from utils import safe_mkdir, safe_remove, get_py_relpath
+from download import download_from_url
 from img_parser import get_images_info
 
 
