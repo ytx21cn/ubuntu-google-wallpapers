@@ -57,7 +57,7 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
         # at this point wget_helper() should have successfully got the file
         # otherwise the process should have already exited
         # now move the file in temporary directory to actual directory
-        mv_args = ['mv']
+        mv_args = ['mv', '-v']
 
         if output_doc:
             output_doc = str(output_doc)
@@ -67,7 +67,7 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
                 safe_mkdir(target_dir)
                 output_doc = '%s/%s' % (target_dir, basename(output_doc))
             else:
-                safe_mkdir(dirname(output_doc))
+                safe_mkdir(dirname(output_doc) or '.')
 
             mv_args += [temp_output_doc, output_doc]
 
