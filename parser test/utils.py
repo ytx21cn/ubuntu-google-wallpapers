@@ -19,7 +19,6 @@ def get_py_relpath(py_file):
     return relpath(py_file, '.')
 
 
-# TODO: add a support for target directory
 def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
     """
     Using wget to download the specified @source_url.
@@ -85,17 +84,3 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None):
 
         sp.call(mv_args)
         return relpath(str(output_doc), '.')
-
-
-if __name__ == '__main__':
-    source_pic = 'https://storage.googleapis.com/gd-wagtail-prod-assets/images/001_PowerOfVisioning_Hero_2.max-4000x2000.jpegquality-90.png'
-
-    test_results = [
-        download_from_url(source_pic),
-        download_from_url(source_pic, target_dir='./2'),
-        download_from_url(source_pic, output_doc='./3/3.png'),
-        download_from_url(source_pic, output_doc='./4a/4.png', target_dir='./4b/'),
-    ]
-    for i in test_results:
-        print(i)
-
