@@ -1,6 +1,6 @@
 import os, subprocess as sp
 from os.path import relpath, basename
-from tempfile import TemporaryDirectory
+from tempfile import TemporaryDirectory as TD
 from sys import stderr
 
 
@@ -15,12 +15,12 @@ def get_py_relpath(py_file):
     return relpath(py_file, '.')
 
 
-# TODO: modify this function to download image files
-def download_from_url(url: str, output_doc: str = None):
+# TODO: add a support for target directory
+def download_from_url(url: str, output_doc: str = None, target_dir: str = '.'):
     """
     Using wget to download the specified @source_url
     Return the downloaded filename
-    If @source_url failed to be downloaded, then exit the process immediately
+    If @source_url downloading fails, then exit the process immediately
     """
 
     def wget_helper(wget_args: list):
@@ -35,7 +35,7 @@ def download_from_url(url: str, output_doc: str = None):
         print('Successfully downloaded: %s\n' % url, file=stderr)
 
     # handle the downloading in temporary directory
-    with TemporaryDirectory() as temp_dir:
+    with TD() as temp_dir:
         # download
         wget_args = ['wget', url]
         if output_doc:
@@ -46,9 +46,10 @@ def download_from_url(url: str, output_doc: str = None):
         wget_helper(wget_args)
 
         # at this point wget_helper() should have successfully got the file
-        # otherwise the process has already exited
+        # otherwise the process should have already exited
         # now move the file in temporary directory to actual directory
         mv_args = ['mv']
+
         if output_doc:
             mv_args += [temp_output_doc, output_doc]
             sp.call(mv_args)
@@ -61,5 +62,5 @@ def download_from_url(url: str, output_doc: str = None):
             return downloaded_filename
 
 
-
-
+if __name__ == '__main__':
+    download_from_url('https://storage.googleapis.com/gd-wagtail-prod-assets/images/001_PowerOfVisioning_Hero_2.max-4000x2000.jpegquality-90.png');

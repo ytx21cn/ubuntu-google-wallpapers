@@ -1,7 +1,6 @@
 import sys
 from utils import safe_remove, get_py_relpath, download_from_url
 from img_parser import get_images_info
-from tempfile import mkdtemp
 
 
 def main():
