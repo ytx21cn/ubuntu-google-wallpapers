@@ -53,7 +53,7 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None, 
             if exit_on_error:
                 exit(-1)
             else:
-                return ''
+                return None
 
         # at this point wget_helper() should have gathered file
         # now move the file in temporary directory to actual directory
