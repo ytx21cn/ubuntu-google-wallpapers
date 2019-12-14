@@ -20,7 +20,7 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None, 
     If @source_url downloading fails, then exit the process immediately.
     """
 
-    def wget_helper(wget_args: list):
+    def wget_helper(args: list):
         """
         Helper: download the specified @url in parent function using @wget_args
         If failed to download, check if @exit_on_error is True
@@ -28,7 +28,7 @@ def download_from_url(url: str, output_doc: str = None, target_dir: str = None, 
             - Otherwise: return False
         If succeeded to download, return True
         """
-        wget_exit_code = sp.call(wget_args)
+        wget_exit_code = sp.call(args)
         if wget_exit_code != 0:
             print('ERROR: failed to download %s\n' % url, file=stderr)
             if exit_on_error:
