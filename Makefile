@@ -20,7 +20,6 @@ source_url_filename := source.url
 source_url := $(shell head -n 1 "$(data_dir)/$(source_url_filename)")
 
 get_images: error_check
-	@echo $(source_url)
 	python3 "$(get_images_exec)" "$(source_url)" "$(images_dir)"
 
 clean: error_check
