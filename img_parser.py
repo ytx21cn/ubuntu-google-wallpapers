@@ -17,7 +17,7 @@ class ImageInfo:
 
 class ImgParser(HTMLParser):
     def __init__(self):
-        HTMLParser.__init__(self)
+        super().__init__()
         self.images_info = []
 
     def handle_starttag(self, tag, attrs):
