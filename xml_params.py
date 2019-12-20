@@ -83,3 +83,28 @@ def get_unix_start_time():
         starttime_xml_list.append(generate_xml_element(tag, content='%02d' % val))
     return generate_xml_element('starttime', starttime_xml_list)
 
+
+class Slide:
+    """
+    Specify the information of current and next images, as well as lasting minutes for each image
+    """
+    def __init__(self, current: str, next: str, lasting_min: int = 30):
+        self.current = str(current)
+        self.next = str(next)
+        self.transition_sec = 5
+        self.lasting_sec = int(lasting_min) * 60 - 5
+
+    def generate_static(self, indent: int = 0):
+        generated_text = generate_xml_element('static', content=[
+            generate_xml_element('duration', content='%.1f' % self.lasting_sec),
+            generate_xml_element('file', content=self.current),
+        ])
+        return indent_text(generated_text, indent=indent)
+
+    def generate_transition(self, indent: int = 0):
+        generated_text = generate_xml_element('transition', content=[
+            generate_xml_element('duration', content='%.1f' % self.lasting_sec),
+            generate_xml_element('from', content=self.current),
+            generate_xml_element('to', content=self.next),
+        ])
+        return indent_text(generated_text, indent=indent)
