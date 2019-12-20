@@ -1,4 +1,6 @@
 from os.path import basename, splitext
+from sys import stdout
+from xml_print import print_indented
 
 
 xml_header = \
@@ -8,7 +10,7 @@ xml_header = \
 
 class Wallpaper:
     """
-    Use this class to setup both wallpaper slideshow XML and wallpaper images
+    Use this class to setup both wallpaper slide show XML and wallpaper images
     """
 
     def __init__(self, filename, name=None):
@@ -38,6 +40,12 @@ class Wallpaper:
             self.name = normalize(main_filename)
         self.options = 'zoom'
 
+    def print(self, indent: int = 0, file=stdout):
+        print_indented('<wallpaper>', indent=indent, file=file)
+        for (key, val) in vars(self).items():
+            print_indented('<%s>%s</%s>' % (key, val, key), indent=indent+1, file=file)
+        print_indented('</wallpaper>', indent=indent, file=file)
+
 
 class WallpaperImage(Wallpaper):
     """
@@ -53,4 +61,4 @@ class WallpaperImage(Wallpaper):
 
 if __name__ == '__main__':
     sample_image = WallpaperImage('/usr/share/backgrounds/Beijling_park_burial_path_by_Mattias_Andersson.jpg')
-    pass
+    sample_image.print(indent=1)
