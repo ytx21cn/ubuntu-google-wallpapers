@@ -15,8 +15,9 @@ def print_indented(text: str, indent: int = 0, file=stdout):
 
 def generate_xml_element(tag: str, content: str or list = None, attrs: dict = None, block=False, indent: int = 0):
     tag = str(tag)
+    # do nothing without a valid tag
     if not tag:
-        raise ValueError('tag must not be empty')
+        return
 
     attrs = dict(attrs) if attrs else {}
 
@@ -31,7 +32,7 @@ def generate_xml_element(tag: str, content: str or list = None, attrs: dict = No
         content = None
         block = False
     elif type(content) is list:
-        content = None if (len(content) == 0) \
+        content = None if len(content) == 0 \
             else '\n'.join([item for item in content if item])
         block = bool(content)
     else:

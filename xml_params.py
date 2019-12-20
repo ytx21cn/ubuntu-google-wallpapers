@@ -1,6 +1,6 @@
 from os.path import basename, splitext
 from sys import stdout
-from xml_print import print_indented
+from xml_print import print_indented, generate_xml_element
 
 
 xml_header = \
@@ -41,10 +41,11 @@ class Wallpaper:
         self.options = 'zoom'
 
     def print(self, indent: int = 0, file=stdout):
-        print_indented('<wallpaper>', indent=indent, file=file)
+        wallpaper_info_list = []
         for (key, val) in vars(self).items():
-            print_indented('<%s>%s</%s>' % (key, val, key), indent=indent+1, file=file)
-        print_indented('</wallpaper>', indent=indent, file=file)
+            wallpaper_info_list.append(generate_xml_element(tag=key, content=str(val)))
+        generated_text = generate_xml_element('wallpaper', content=wallpaper_info_list)
+        print_indented(generated_text, indent=indent, file=file)
 
 
 class WallpaperImage(Wallpaper):
@@ -59,6 +60,13 @@ class WallpaperImage(Wallpaper):
         self.shade_type = 'solid'
 
 
-if __name__ == '__main__':
+def test_wallpaper():
+    sample_xml = Wallpaper('/usr/share/backgrounds/contest/eoan.xml', name='Ubuntu 19.10 Community Wallpapers')
+    sample_xml.print(indent=1)
+
     sample_image = WallpaperImage('/usr/share/backgrounds/Beijling_park_burial_path_by_Mattias_Andersson.jpg')
     sample_image.print(indent=1)
+
+
+if __name__ == '__main__':
+    test_wallpaper()
