@@ -30,11 +30,11 @@ class ImgParser(HTMLParser):
             self.images_info.append(new_image_info)
 
 
-def get_images_info(html_file_name: str):
+def get_images_info(html_filename: str):
     """
-    Using the <img> tags in @html_file_name, get information of all images listed in the document
+    Using the <img> tags in @html_filename, get information of all images listed in the document
     """
-    with open(html_file_name) as source:
+    with open(html_filename) as source:
         source_content = source.read()
         parser = ImgParser()
         parser.feed(source_content)
