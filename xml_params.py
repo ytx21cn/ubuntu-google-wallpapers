@@ -1,11 +1,11 @@
 from os.path import basename, splitext
 from xml_print import indent_text, print_indented, generate_xml_element
-from collections import OrderedDict
 
 
-bg_properties_xml_header = \
-    '<?xml version="1.0" encoding="UTF-8"?>\n'\
-    '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
+def get_bg_properties_xml_header():
+    return \
+        '<?xml version="1.0" encoding="UTF-8"?>\n'\
+        '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
 
 
 class Wallpaper:
@@ -18,6 +18,9 @@ class Wallpaper:
         def normalize(src_str: str):
             """
             Normalize a @src_str so that it is appropriate to be used as a title
+            - Convert all underscores to spaces
+            - Compress consecutive spaces
+            - Remove leading and trailing whitespaces
             """
 
             # remove leading and trailing whitespaces
@@ -61,6 +64,11 @@ class WallpaperImage(Wallpaper):
 
 
 def get_unix_start_time():
+    """
+    Get the starting point of Unix time
+    Return the XML markup
+    """
+
     starttime_items = [
         ('year', 1970),
         ('month', 1),
@@ -87,6 +95,6 @@ def test_wallpaper():
 
 
 if __name__ == '__main__':
-    print(bg_properties_xml_header)
+    print(get_bg_properties_xml_header())
     print_indented(get_unix_start_time())
     test_wallpaper()
