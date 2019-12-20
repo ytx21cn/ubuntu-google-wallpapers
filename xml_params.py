@@ -1,5 +1,5 @@
 from os.path import basename, splitext
-from xml_print import indent_text, print_indented, generate_xml_element
+from xml_print import indent_text, generate_xml_element
 
 
 def get_bg_properties_xml_header():
@@ -83,18 +83,3 @@ def get_unix_start_time():
         starttime_xml_list.append(generate_xml_element(tag, content='%02d' % val))
     return generate_xml_element('starttime', starttime_xml_list)
 
-
-def test_wallpaper():
-    sample_xml = Wallpaper('/usr/share/backgrounds/contest/eoan.xml', name='Ubuntu 19.10 Community Wallpapers')
-    sample_image = WallpaperImage('/usr/share/backgrounds/Beijling_park_burial_path_by_Mattias_Andersson.jpg')
-
-    root_tag = 'wallpapers'
-    inner_tag = 'wallpaper'
-    inner_content = [sample_xml.generate_xml(), sample_image.generate_xml()]
-    print_indented(generate_xml_element(root_tag, content=inner_content))
-
-
-if __name__ == '__main__':
-    print(get_bg_properties_xml_header())
-    print_indented(get_unix_start_time())
-    test_wallpaper()
