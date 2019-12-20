@@ -103,7 +103,7 @@ class Slide:
 
     def generate_transition(self, indent: int = 0):
         generated_text = generate_xml_element('transition', content=[
-            generate_xml_element('duration', content='%.1f' % self.lasting_sec),
+            generate_xml_element('duration', content='%.1f' % self.transition_sec),
             generate_xml_element('from', content=self.current),
             generate_xml_element('to', content=self.next),
         ])
