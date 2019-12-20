@@ -1,9 +1,9 @@
 from os.path import basename, splitext
-from sys import stdout
 from xml_print import indent_text, print_indented, generate_xml_element
+from collections import OrderedDict
 
 
-xml_header = \
+bg_properties_xml_header = \
     '<?xml version="1.0" encoding="UTF-8"?>\n'\
     '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
 
@@ -70,6 +70,24 @@ def test_wallpaper():
     print_indented(generate_xml_element(root_tag, content=inner_content))
 
 
+def get_unix_start_time():
+    starttime_dict = OrderedDict([
+        ('year', '1970'),
+        ('month', '01'),
+        ('day', '01'),
+        ('hour', '00'),
+        ('minute', '00'),
+        ('second', '00'),
+    ])
+
+    starttime_xml_list = []
+    for (key, val) in starttime_dict.items():
+        starttime_xml_list.append(generate_xml_element(key, content=val))
+    return generate_xml_element('starttime', starttime_xml_list)
+
+
+
 if __name__ == '__main__':
-    print(xml_header)
+    print(bg_properties_xml_header)
     test_wallpaper()
+    print_indented(get_unix_start_time())
