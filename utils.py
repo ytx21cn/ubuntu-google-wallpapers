@@ -1,7 +1,5 @@
-import os, subprocess as sp
-from os.path import relpath, dirname, basename
-from tempfile import TemporaryDirectory as TD
-from sys import stderr
+import os
+from os.path import relpath
 
 
 def safe_remove(path: str):
