@@ -4,12 +4,13 @@ from os.path import abspath, basename, expanduser, isdir
 from sys import stderr
 
 from utils import get_py_relpath, safe_mkdir, safe_link
-from xml_params import get_bg_properties_xml_header, get_unix_start_time, Slide
+from xml_params import get_bg_properties_xml_header, get_unix_start_time, Wallpaper, WallpaperImage, Slide
 from xml_print import generate_xml_element, xml_comment
 
-home_dir = expanduser('~')
-bg_dir = '%s/.local/share/backgrounds' % home_dir
-bg_properties_dir = '%s/.local/share/gnome-background-properties' % home_dir
+bg_dir = expanduser('~/.local/share/backgrounds')
+bg_properties_dir = expanduser('~/.local/share/gnome-background-properties')
+for i in [bg_dir, bg_properties_dir]:
+    safe_mkdir(i)
 
 images_dir_name = 'images'
 image_exts = ['jpg', 'png']
@@ -53,6 +54,11 @@ def main():
 
     # generate slide show XML
     def generate_slide_show_xml():
+        """
+        Generate a slide show XML.
+        Put the XML into "~/.local/share/backgrounds" directory.
+        """
+
         root_tag = 'background'
 
         # start time
@@ -72,22 +78,52 @@ def main():
             slides_xml_list.append(new_slide.generate_static())
             slides_xml_list.append(new_slide.generate_transition())
 
-        combined_slide_show_xml = generate_xml_element(tag=root_tag, content=[
+        # combine together into XML
+        combined_xml = generate_xml_element(tag=root_tag, content=[
             start_time,
             start_time_comment,
             *slides_xml_list
         ])
-        return combined_slide_show_xml
+        return combined_xml
 
+    # write slide show XML to file
     slide_show_xml_filename = abspath('%s/%s.xml' % (target_dir, basename(target_dir)))
     with open(slide_show_xml_filename, 'w') as slide_show_file:
         print(generate_slide_show_xml(), file=slide_show_file)
-        print('[Generated XML file]\n%s' % slide_show_xml_filename, file=stderr)
+        print('[Generated slide show XML file]\n%s' % slide_show_xml_filename, file=stderr)
 
+    # generate background properties XML
+    def generate_bg_properties_xml():
+        """
+        Generate a background properties XML.
+        Put the XML into "~/.local/share/gnome-background-properties" directory.
+        """
 
-    # TODO: generate background properties XML
+        root_tag = 'wallpapers'
+        header = get_bg_properties_xml_header()
+        item_tag = 'wallpaper'
+        bg_list = []
 
-    pass
+        # first add slide show XML
+        slide_show = Wallpaper(slide_show_xml_filename, name=collection_name)
+        slide_show_xml_element = slide_show.generate_xml()
+        bg_list.append(slide_show_xml_element)
+
+        # then add images
+        for image_filename in linked_images:
+            image = WallpaperImage(image_filename)
+            image_xml_element = image.generate_xml()
+            bg_list.append(image_xml_element)
+
+        # combine together into XML
+        combined_xml = generate_xml_element(tag=root_tag, content=bg_list)
+        return combined_xml
+
+    # write background properties XML to file
+    bg_properties_xml_filename = abspath('%s/%s.xml' % (bg_properties_dir, collection_name))
+    with open(bg_properties_xml_filename, 'w') as bg_properties_file:
+        print(generate_bg_properties_xml(), file=bg_properties_file)
+        print('[Generated background properties XML file]\n%s' % bg_properties_xml_filename, file=stderr)
 
 
 if __name__ == '__main__':
