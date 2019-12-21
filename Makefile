@@ -1,5 +1,5 @@
 # Usage:
-# To build a target for a specific data directory: make <target> data_dir=<data directory name>
+# To build a target for a specific data directory: make <target> data_dir=<data directory name> transition_interval=<number of minutes, int <= 1440>
 
 get_images_exec := main_get_images.py
 write_xml_exec := main_write_xml.py
@@ -14,7 +14,7 @@ all: get_images write_xml
 
 error_check:
 ifndef data_dir
-	$(info Usage: make <target> data_dir=<data directory name>)
+	$(info Usage: make <target> data_dir=<data directory name> transition_interval=<number of minutes, int <= 1440>)
 	$(info Use TAB to see the list of available targets)
 	$(error "EXIT")
 endif
@@ -28,7 +28,7 @@ get_images: error_check
 	python3 "$(get_images_exec)" "$(source_url)" "$(images_dir)"
 
 write_xml: error_check
-	python3 "$(write_xml_exec)" "$(data_dir)"
+	python3 "$(write_xml_exec)" "$(data_dir)" "$(transition_interval)"
 
 clean: clean_downloaded clean_generated_bg
 
