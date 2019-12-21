@@ -6,7 +6,7 @@ from img_parser import get_images_info
 from download import download_from_url
 
 
-test_data_dir = '%s/test_data' % dirname(__file__)
+test_data_dir = '%s/test_data' % (dirname(__file__) or '.')
 source_url_file = '%s/test_source.url' % test_data_dir
 images_dir = '%s/images' % test_data_dir
 
