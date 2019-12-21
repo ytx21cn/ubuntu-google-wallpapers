@@ -31,8 +31,9 @@ def main():
 
     # set transition interval using command line argument
     transition_interval = 30
+    min_per_day = 24 * 60
     if len(sys.argv) >= 3:
-        transition_interval = sys.argv[2]
+        transition_interval = min(int(sys.argv[2]), min_per_day)
 
     # get list of images
     images_list = []
