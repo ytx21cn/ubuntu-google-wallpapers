@@ -69,7 +69,7 @@ def get_unix_start_time():
     Return the XML markup
     """
 
-    starttime_items = [
+    start_time_items = [
         ('year', 1970),
         ('month', 1),
         ('day', 1),
@@ -78,21 +78,21 @@ def get_unix_start_time():
         ('second', 0),
     ]
 
-    starttime_xml_list = []
-    for (tag, val) in starttime_items:
-        starttime_xml_list.append(generate_xml_element(tag, content='%02d' % val))
-    return generate_xml_element('starttime', starttime_xml_list)
+    start_time_xml_list = []
+    for (tag, val) in start_time_items:
+        start_time_xml_list.append(generate_xml_element(tag, content='%02d' % val))
+    return generate_xml_element('starttime', start_time_xml_list)
 
 
 class Slide:
     """
     Specify the information of current and next images, as well as lasting minutes for each image
     """
-    def __init__(self, current: str, next: str, lasting_min: int = 30):
-        self.current = str(current)
-        self.next = str(next)
+    def __init__(self, current_slide: str, next_slide: str, transition_interval: int = 30):
+        self.current = str(current_slide)
+        self.next = str(next_slide)
         self.transition_sec = 5
-        self.lasting_sec = int(lasting_min) * 60 - 5
+        self.lasting_sec = int(transition_interval) * 60 - 5
 
     def generate_static(self, indent: int = 0):
         generated_text = generate_xml_element('static', content=[

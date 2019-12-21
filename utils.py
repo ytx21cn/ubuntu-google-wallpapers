@@ -15,13 +15,13 @@ def safe_mkdir(path: str):
 
 
 def safe_link(src: str, dest: str):
-    src = str(src)
-    dest = str(dest)
+    src = abspath(str(src))
+    dest = abspath(str(dest))
     try:
         os.link(src, dest)
-        print('Hard link created: %s -> %s' % (abspath(src), abspath(dest)), file=stderr)
+        print('[Hard link created]\nFROM: %s\nTO: %s' % (src, dest), file=stderr)
     except:
-        pass
+        print('[File exists]\n%s' % dest, file=stderr)
 
 
 def get_py_relpath(py_file):

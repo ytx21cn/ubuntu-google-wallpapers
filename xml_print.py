@@ -66,3 +66,9 @@ def generate_xml_element(tag: str, content: str or list = None, attrs: dict = No
             result = '%s\n%s\n%s' % (tag_open, indent_text(content, indent=1), tag_close)
 
         return indent_text(result, indent)
+
+
+def xml_comment(content: str, indent: int = 0):
+    content = str(content).strip()
+    result = '<!-- %s -->' % content
+    return indent_text(result, indent)
