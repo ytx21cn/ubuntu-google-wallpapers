@@ -1,7 +1,3 @@
-import sys
-from os.path import abspath, relpath, dirname
-sys.path.append(abspath(relpath('..', dirname(__file__))))
-
 from xml_params import get_bg_properties_xml_header, Wallpaper, WallpaperImage
 from xml_print import generate_xml_element, print_indented
 

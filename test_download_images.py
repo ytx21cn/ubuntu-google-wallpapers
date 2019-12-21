@@ -1,15 +1,14 @@
 from tempfile import TemporaryDirectory
-import sys
-from os.path import abspath, relpath, dirname
-sys.path.append(abspath(relpath('..', dirname(__file__))))
+from os.path import dirname
 
-# import from parent directory
 from utils import safe_mkdir
 from img_parser import get_images_info
 from download import download_from_url
 
-source_url_file = './test_source.url'
-images_dir = './images'
+
+test_data_dir = '%s/test_data' % dirname(__file__)
+source_url_file = '%s/test_source.url' % test_data_dir
+images_dir = '%s/images' % test_data_dir
 
 
 def test_download_images():
