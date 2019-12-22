@@ -6,6 +6,7 @@ from sys import stderr
 from utils import get_py_relpath, safe_mkdir, safe_link
 from xml_params import get_bg_properties_xml_header, get_unix_start_time, Wallpaper, WallpaperImage, Slide
 from xml_print import generate_xml_element, xml_comment
+from img_parser import image_exts
 
 bg_dir = expanduser('~/.local/share/backgrounds')
 bg_properties_dir = expanduser('~/.local/share/gnome-background-properties')
@@ -13,7 +14,6 @@ for i in [bg_dir, bg_properties_dir]:
     safe_mkdir(i)
 
 images_dir_name = 'images'
-image_exts = ['jpg', 'png']
 
 
 def main():
@@ -33,7 +33,10 @@ def main():
     transition_interval = 30
     min_per_day = 24 * 60
     if len(sys.argv) >= 3:
-        transition_interval = min(int(sys.argv[2]), min_per_day)
+        try:
+            transition_interval = min(int(sys.argv[2]), min_per_day)
+        except:
+            pass
 
     # get list of images
     images_list = []

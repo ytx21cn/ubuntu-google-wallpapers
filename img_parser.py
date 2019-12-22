@@ -1,7 +1,10 @@
 from html.parser import HTMLParser
+from os.path import splitext
 
 # HTML image parser
 # parse all <img> tags in an HTML file
+
+image_exts = ['jpg', 'png']
 
 
 class ImageInfo:
@@ -27,7 +30,14 @@ class ImgParser(HTMLParser):
         """
         if tag == 'img':
             new_image_info = ImageInfo(attrs)
-            self.images_info.append(new_image_info)
+            src = new_image_info.src
+            if not src:
+                pass
+            else:
+                src_ext = splitext(str(src))[1]
+                # exclude starting '.'
+                if src_ext[1:] in image_exts:
+                    self.images_info.append(new_image_info)
 
 
 def get_images_info(html_filename: str):
