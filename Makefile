@@ -1,14 +1,14 @@
 # Usage:
 # To build a target for a specific data directory: make <target> collection_dir=<collection directory name> transition_interval=<number of minutes, int <= 1440>
 
-get_images_exec := main_get_images.py
+download_images_exec := main_download_images.py
 write_xml_exec := main_write_xml.py
 
 bg_dir := $$HOME/.local/share/backgrounds
 bg_properties_dir := $$HOME/.local/share/gnome-background-properties
 
 .PHONY: all
-all: get_images write_xml
+all: download_images write_xml
 
 # check error (this shall be done before doing anything using Makefile)
 source_url_filename := source.url
@@ -29,11 +29,11 @@ source_url := $(shell head -n 1 "$(collection_dir)/$(source_url_filename)")
 
 # get images from a specified source URL
 # and save it to the specified directory
-.PHONY: get_images
-get_images: error_check
-	python3 "$(get_images_exec)" "$(source_url)" "$(images_dir)"
+.PHONY: download_images
+download_images: error_check
+	python3 "$(download_images_exec)" "$(source_url)" "$(images_dir)"
 
-# write the XMget_imagesL files for wallpaper slideshow
+# write the XML files for wallpaper slideshow
 # using specified image directory and transition interval
 .PHONY: write_xml
 write_xml: error_check
