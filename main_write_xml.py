@@ -66,10 +66,11 @@ def main():
         """
 
         root_tag = 'background'
+        start_comment_text = 'This animation starts at the beginning of the unix epoch.'
 
         # start time
         start_time = get_unix_start_time()
-        start_time_comment = generate_xml_comment('This animation starts at the beginning of the unix epoch.')
+        start_time_comment = generate_xml_comment(start_comment_text)
 
         # list of slides
         num_total_images = len(linked_images)
