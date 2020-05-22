@@ -1,5 +1,5 @@
 import sys
-from utils import safe_mkdir, safe_remove, get_py_relpath
+from utils import safe_mkdir, safe_remove
 from download import download_from_url
 from img_parser import get_images_info
 
@@ -7,8 +7,8 @@ from img_parser import get_images_info
 def main():
     # check command line arguments
     assert len(sys.argv) >= 2,\
-        '\n[Usage] python3 %s <URL to download>' \
-        '[directory to save images]' % get_py_relpath(__file__)
+        '\n[Usage] python3 "%s" <URL to download>' \
+        '[directory to save images]' % __file__
 
     # get the URL to download from using command line argument, and download the page
     # exit if failed to download

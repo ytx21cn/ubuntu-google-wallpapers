@@ -1,12 +1,12 @@
 import os
-from os.path import relpath, abspath
+from os.path import abspath
 from sys import stderr
 
 
 def safe_remove(path: str):
     try:
         os.remove(str(path))
-    except:
+    except OSError:
         pass
 
 
@@ -20,9 +20,5 @@ def safe_link(src: str, dest: str):
     try:
         os.link(src, dest)
         print('[Hard link created]\nFROM: %s\nTO: %s' % (src, dest), file=stderr)
-    except:
+    except OSError:
         print('[File exists]\n%s' % dest, file=stderr)
-
-
-def get_py_relpath(py_file):
-    return relpath(py_file, '.')

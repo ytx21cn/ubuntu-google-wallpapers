@@ -3,7 +3,7 @@ import sys
 from os.path import abspath, basename, expanduser, isdir
 from sys import stderr
 
-from utils import get_py_relpath, safe_mkdir, safe_link
+from utils import safe_mkdir, safe_link
 from xml_params import get_bg_properties_xml_header, get_unix_start_time, Wallpaper, WallpaperImage, Slide
 from xml_print import generate_xml_element, generate_xml_comment
 from img_parser import image_exts
@@ -21,9 +21,9 @@ XML_header = get_bg_properties_xml_header()
 def main():
     # check command line arguments
     assert len(sys.argv) >= 2,\
-        'Usage: python3 %s <data directory, with sub-directory "%s">'\
+        'Usage: python3 "%s" <data directory, with sub-directory "%s">'\
         '[transition interval in minutes (default is 30)]'\
-        % (get_py_relpath(__file__), images_dir_name)
+        % (__file__, images_dir_name)
 
     # check source images directory
     src_data_dir = sys.argv[1]
