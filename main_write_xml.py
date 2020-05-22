@@ -5,7 +5,7 @@ from sys import stderr
 
 from utils import get_py_relpath, safe_mkdir, safe_link
 from xml_params import get_bg_properties_xml_header, get_unix_start_time, Wallpaper, WallpaperImage, Slide
-from xml_print import generate_xml_element, xml_comment
+from xml_print import generate_xml_element, generate_xml_comment
 from img_parser import image_exts
 
 bg_dir = expanduser('~/.local/share/backgrounds')
@@ -67,7 +67,7 @@ def main():
 
         # start time
         start_time = get_unix_start_time()
-        start_time_comment = xml_comment('This animation starts at the beginning of the unix epoch.')
+        start_time_comment = generate_xml_comment('This animation starts at the beginning of the unix epoch.')
 
         # slides list
         num_total_images = len(linked_images)

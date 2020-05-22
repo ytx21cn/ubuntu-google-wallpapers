@@ -68,7 +68,13 @@ def generate_xml_element(tag: str, content: str or list = None, attrs: dict = No
         return indent_text(result, indent)
 
 
-def xml_comment(content: str, indent: int = 0):
+def generate_xml_comment(content: str, indent: int = 0):
+    """
+    Generates an XML comment.
+    :param content: the content of the comment
+    :param indent: indent level
+    :return: the generated comment string with markup.
+    """
     content = str(content).strip()
     result = '<!-- %s -->' % content
     return indent_text(result, indent)
