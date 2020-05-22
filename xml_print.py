@@ -1,7 +1,13 @@
 from sys import stdout
 
 
-def indent_text(text: str, indent: int = 0):
+def indent_text(text: str, indent: int = 0) -> str:
+    """
+    Indent some text by certain levels.
+    :param text: the text to be indented (may span over multiple lines).
+    :param indent: the level to be indented.
+    :return: the indented text as a string.
+    """
     result = ''
     indent = int(indent)
     for line in str(text).splitlines():
@@ -10,6 +16,12 @@ def indent_text(text: str, indent: int = 0):
 
 
 def print_indented(text: str, indent: int = 0, file=stdout):
+    """
+    Print indented text into specified file.
+    :param text: the text to be printed.
+    :param indent: the indent level.
+    :param file: the file DESCRIPTOR for receiving the output.
+    """
     print(indent_text(str(text), int(indent)), file=file)
 
 
