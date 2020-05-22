@@ -103,6 +103,7 @@ def main():
         Put the XML into "~/.local/share/gnome-background-properties" directory.
         """
 
+        header = get_bg_properties_xml_header()
         root_tag = 'wallpapers'
         item_tag = 'wallpaper'
         bg_list = []
@@ -119,14 +120,13 @@ def main():
             bg_list.append(image_xml_element)
 
         # combine together into XML
-        combined_xml = generate_xml_element(tag=root_tag, content=bg_list)
+        combined_xml = header + '\n'
+        combined_xml += generate_xml_element(tag=root_tag, content=bg_list)
         return combined_xml
 
     # write background properties XML to file
     bg_properties_xml_filename = abspath('%s/%s.xml' % (bg_properties_dir, collection_name))
     with open(bg_properties_xml_filename, 'w') as bg_properties_file:
-        header = get_bg_properties_xml_header()
-        print(header, file=bg_properties_file)
         print(generate_bg_properties_xml(), file=bg_properties_file)
         print('[Generated background properties XML file]\n%s' % bg_properties_xml_filename, file=stderr)
 
