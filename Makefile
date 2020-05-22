@@ -11,17 +11,20 @@ bg_properties_dir := $$HOME/.local/share/gnome-background-properties
 all: get_images write_xml
 
 # check error (this shall be done before doing anything using Makefile)
+source_url_filename := source.url
+
 .PHONY: error_check
 error_check:
 ifndef collection_dir
-	$(info Usage: make <target> collection_dir=<collection directory name> transition_interval=<number of minutes, int <= 1440>)
-	$(info Use TAB to see the list of available targets)
+	$(info Usage: make <target> collection_dir=<collection directory name> [transition_interval=<number of minutes, int <= 1440>])
+	$(info - If you are using Bash, Use TAB to see the list of available targets.)
+	$(info - transition_interval is only required when downloading image collections and adding them to system settings.)
+	$(info - When downloading images, make sure that you have the "$(source_url_filename)" file in the collection directory to specify the image source page URL!!!)
 	$(error "EXIT")
 endif
 
 images_dir := $(collection_dir)/images
 collection_name := $(shell basename "$(collection_dir)")
-source_url_filename := source.url
 source_url := $(shell head -n 1 "$(collection_dir)/$(source_url_filename)")
 
 # get images from a specified source URL
