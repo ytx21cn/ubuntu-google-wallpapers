@@ -15,7 +15,7 @@ class Wallpaper:
     Use this class to setup both wallpaper slide show XML and wallpaper images.
     """
 
-    wallpaper_element = 'wallpaper'
+    wallpaper_tag = 'wallpaper'
 
     def __init__(self, filename, name=None):
 
@@ -51,7 +51,7 @@ class Wallpaper:
         wallpaper_info_list = []
         for (key, val) in vars(self).items():
             wallpaper_info_list.append(generate_xml_element(tag=key, content=str(val)))
-        generated_text = generate_xml_element(self.wallpaper_element, content=wallpaper_info_list)
+        generated_text = generate_xml_element(self.wallpaper_tag, content=wallpaper_info_list)
         return indent_text(generated_text, indent=indent)
 
 

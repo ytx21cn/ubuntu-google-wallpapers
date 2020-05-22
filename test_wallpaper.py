@@ -5,11 +5,11 @@ from xml_print import generate_xml_element, print_indented
 def test_wallpaper():
     print(get_bg_properties_xml_header())
 
-    sample_xml = Wallpaper('/usr/share/backgrounds/contest/eoan.xml', name='Ubuntu 19.10 Community Wallpapers')
-    sample_image = WallpaperImage('/usr/share/backgrounds/Beijling_park_burial_path_by_Mattias_Andersson.jpg')
+    sample_slideshow = Wallpaper('/usr/share/backgrounds/contest/focal.xml', name='Ubuntu')
+    sample_image = WallpaperImage('/usr/share/backgrounds/warty-final-ubuntu.png')
 
     root_tag = 'wallpapers'
-    inner_content = [sample_xml.generate_xml(), sample_image.generate_xml()]
+    inner_content = [sample_slideshow.generate_xml(), sample_image.generate_xml()]
     print_indented(generate_xml_element(root_tag, content=inner_content))
 
 
