@@ -30,13 +30,13 @@ def main():
         raise FileNotFoundError('%s has no sub-directory "%s"' % (src_data_dir, images_dir_name))
 
     # set transition interval using command line argument
-    transition_interval = 30
+    # default is 30 minutes
     min_per_day = 24 * 60
     if len(sys.argv) >= 3:
         try:
             transition_interval = min(int(sys.argv[2]), min_per_day)
-        except:
-            pass
+        except ValueError:
+            transition_interval = 30
 
     # get list of images
     images_list = []
