@@ -17,34 +17,34 @@ class Wallpaper:
 
     wallpaper_tag = 'wallpaper'
 
+    @classmethod
+    def get_wallpaper_title(cls, src_str: str):
+        """
+        Convert a source string to the title format.
+        - Convert all underscores to spaces
+        - Compress consecutive spaces
+        - Remove leading and trailing whitespaces
+        """
+
+        # remove leading and trailing whitespaces
+        result_str = str(src_str).strip()
+        # convert all underscores ('_') to spaces
+        # and also compress consecutive underscores / spaces into one space
+        # then remove leading and trailing whitespaces
+        result_str = ' '.join([i for i in result_str.split('_') if i]).strip()
+        result_str = ' '.join([i for i in result_str.split(' ') if i]).strip()
+        # convert to title case
+        result_str = result_str.title()
+
+        return result_str
+
     def __init__(self, filename, name=None):
-
-        def normalize(src_str: str):
-            """
-            Normalize a @src_str to the title format.
-            - Convert all underscores to spaces
-            - Compress consecutive spaces
-            - Remove leading and trailing whitespaces
-            """
-
-            # remove leading and trailing whitespaces
-            result_str = str(src_str).strip()
-            # convert all underscores ('_') to spaces
-            # and also compress consecutive underscores / spaces into one space
-            # then remove leading and trailing whitespaces
-            result_str = ' '.join([i for i in result_str.split('_') if i]).strip()
-            result_str = ' '.join([i for i in result_str.split(' ') if i]).strip()
-            # convert to title case
-            result_str = result_str.title()
-
-            return result_str
-
         self.filename = str(filename).strip()
         if name is not None:
-            self.name = normalize(name)
+            self.name = self.get_wallpaper_title(name)
         else:
             main_filename = splitext(basename(self.filename))[0]
-            self.name = normalize(main_filename)
+            self.name = self.get_wallpaper_title(main_filename)
         self.options = 'zoom'
 
     def generate_xml(self, indent: int = 0):
