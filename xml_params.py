@@ -3,9 +3,11 @@ from xml_print import indent_text, generate_xml_element
 
 
 def get_bg_properties_xml_header():
-    return \
-        '<?xml version="1.0" encoding="UTF-8"?>\n'\
-        '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
+    """
+    The XML header for the GNOME Background Properties XML files.
+    """
+    return '<?xml version="1.0" encoding="UTF-8"?>\n'\
+           '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
 
 
 class Wallpaper:
@@ -19,7 +21,7 @@ class Wallpaper:
 
         def normalize(src_str: str):
             """
-            Normalize a @src_str so that it is appropriate to be used as a title
+            Normalize a @src_str to the title format.
             - Convert all underscores to spaces
             - Compress consecutive spaces
             - Remove leading and trailing whitespaces
@@ -87,7 +89,8 @@ def get_unix_start_time():
 
 class Slide:
     """
-    Specify the information of current and next images, as well as lasting minutes for each image
+    Specify the information of current and next images, as well as lasting minutes for each image.
+    A single slide involves one single image and transition to the next image.
     """
     def __init__(self, current_slide: str, next_slide: str, transition_interval: int = 30):
         self.current = str(current_slide)
