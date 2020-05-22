@@ -1,3 +1,4 @@
+from abc import ABC
 from html.parser import HTMLParser
 from os.path import splitext
 
@@ -18,7 +19,7 @@ class ImageInfo:
         self.alt = None if 'src' not in attrs_dict else attrs_dict['alt']
 
 
-class ImgParser(HTMLParser):
+class ImgParser(HTMLParser, ABC):
     def __init__(self):
         super().__init__()
         self.images_info = []
@@ -49,4 +50,3 @@ def get_images_info(html_filename: str):
         parser = ImgParser()
         parser.feed(source_content)
         return parser.images_info
-
