@@ -4,7 +4,7 @@ from xml_print import indent_text, generate_xml_element
 
 def get_bg_properties_xml_header():
     """
-    The XML header for the GNOME Background Properties XML files.
+    The XML XML_header for the GNOME Background Properties XML files.
     """
     return '<?xml version="1.0" encoding="UTF-8"?>\n'\
            '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'

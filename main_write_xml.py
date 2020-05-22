@@ -15,6 +15,8 @@ for i in [bg_dir, bg_properties_dir]:
 
 images_dir_name = 'images'
 
+XML_header = get_bg_properties_xml_header()
+
 
 def main():
     # check command line arguments
@@ -47,9 +49,9 @@ def main():
     collection_name = basename(abspath('%s/..' % src_images_dir))
     target_dir = '%s/%s' % (bg_dir, collection_name)
     safe_mkdir(target_dir)
-    for image in images_list:
-        target_image = '%s/%s' % (target_dir, basename(image))
-        safe_link(image, target_image)
+    for source_image in images_list:
+        target_image = '%s/%s' % (target_dir, basename(source_image))
+        safe_link(source_image, target_image)
 
     linked_images = []
     for ext in image_exts:
@@ -69,7 +71,7 @@ def main():
         start_time = get_unix_start_time()
         start_time_comment = generate_xml_comment('This animation starts at the beginning of the unix epoch.')
 
-        # slides list
+        # list of slides
         num_total_images = len(linked_images)
         slides_xml_list = []
         for image_index in range(0, num_total_images):
@@ -83,7 +85,8 @@ def main():
             slides_xml_list.append(new_slide.generate_transition())
 
         # combine together into XML
-        combined_xml = generate_xml_element(tag=root_tag, content=[
+        combined_xml = XML_header + '\n'
+        combined_xml += generate_xml_element(tag=root_tag, content=[
             start_time,
             start_time_comment,
             *slides_xml_list
@@ -103,9 +106,7 @@ def main():
         Put the XML into "~/.local/share/gnome-background-properties" directory.
         """
 
-        header = get_bg_properties_xml_header()
         root_tag = 'wallpapers'
-        item_tag = 'wallpaper'
         bg_list = []
 
         # first add slide show XML
@@ -120,7 +121,7 @@ def main():
             bg_list.append(image_xml_element)
 
         # combine together into XML
-        combined_xml = header + '\n'
+        combined_xml = XML_header + '\n'
         combined_xml += generate_xml_element(tag=root_tag, content=bg_list)
         return combined_xml
 
