@@ -57,7 +57,11 @@ class Wallpaper:
 
 class WallpaperImage(Wallpaper):
     """
-    Use this subclass to add additional attributes for images (*.jpg / *.png).
+    Use this subclass to add additional tags for images (*.jpg / *.png).
+    These tags include:
+    - pcolor
+    - scolor
+    - shade_type
     """
     def __init__(self, filename, name=None):
         super().__init__(filename, name)
@@ -72,14 +76,8 @@ def get_unix_start_time():
     Return the XML markup.
     """
 
-    start_time_items = [
-        ('year', 1970),
-        ('month', 1),
-        ('day', 1),
-        ('hour', 0),
-        ('minute', 0),
-        ('second', 0),
-    ]
+    start_time_items = [('year', 1970), ('month', 1), ('day', 1),
+                        ('hour', 0), ('minute', 0), ('second', 0)]
 
     start_time_xml_list = []
     for (tag, val) in start_time_items:
@@ -92,6 +90,7 @@ class Slide:
     Specify the information of current and next images, as well as lasting minutes for each image.
     A single slide involves one single image and transition to the next image.
     """
+
     def __init__(self, current_slide: str, next_slide: str, transition_interval: int = 30):
         self.current = str(current_slide)
         self.next = str(next_slide)
