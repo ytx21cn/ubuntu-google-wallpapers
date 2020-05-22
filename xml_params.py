@@ -10,8 +10,10 @@ def get_bg_properties_xml_header():
 
 class Wallpaper:
     """
-    Use this class to setup both wallpaper slide show XML and wallpaper images
+    Use this class to setup both wallpaper slide show XML and wallpaper images.
     """
+
+    wallpaper_element = 'wallpaper'
 
     def __init__(self, filename, name=None):
 
@@ -47,15 +49,14 @@ class Wallpaper:
         wallpaper_info_list = []
         for (key, val) in vars(self).items():
             wallpaper_info_list.append(generate_xml_element(tag=key, content=str(val)))
-        generated_text = generate_xml_element('wallpaper', content=wallpaper_info_list)
+        generated_text = generate_xml_element(self.wallpaper_element, content=wallpaper_info_list)
         return indent_text(generated_text, indent=indent)
 
 
 class WallpaperImage(Wallpaper):
     """
-    Use this subclass to add additional attributes for images (*.jpg / *.png)
+    Use this subclass to add additional attributes for images (*.jpg / *.png).
     """
-
     def __init__(self, filename, name=None):
         super().__init__(filename, name)
         self.pcolor = '#000000'
@@ -65,8 +66,8 @@ class WallpaperImage(Wallpaper):
 
 def get_unix_start_time():
     """
-    Get the starting point of Unix time
-    Return the XML markup
+    Get the starting point of Unix time.
+    Return the XML markup.
     """
 
     start_time_items = [
