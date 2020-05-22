@@ -104,7 +104,6 @@ def main():
         """
 
         root_tag = 'wallpapers'
-        header = get_bg_properties_xml_header()
         item_tag = 'wallpaper'
         bg_list = []
 
@@ -126,6 +125,8 @@ def main():
     # write background properties XML to file
     bg_properties_xml_filename = abspath('%s/%s.xml' % (bg_properties_dir, collection_name))
     with open(bg_properties_xml_filename, 'w') as bg_properties_file:
+        header = get_bg_properties_xml_header()
+        print(header, file=bg_properties_file)
         print(generate_bg_properties_xml(), file=bg_properties_file)
         print('[Generated background properties XML file]\n%s' % bg_properties_xml_filename, file=stderr)
 
