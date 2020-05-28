@@ -91,23 +91,23 @@ class Slide:
     A single slide involves one single image and transition to the next image.
     """
 
-    def __init__(self, current_slide: str, next_slide: str, transition_interval: int = 30):
-        self.current = str(current_slide)
-        self.next = str(next_slide)
+    def __init__(self, current_image: str, next_image: str, transition_interval: int = 30):
+        self.current_image = str(current_image)
+        self.next_image = str(next_image)
         self.transition_sec = 5
         self.lasting_sec = int(transition_interval) * 60 - 5
 
     def generate_static(self, indent: int = 0):
         generated_text = generate_xml_element('static', content=[
             generate_xml_element('duration', content='%.1f' % self.lasting_sec),
-            generate_xml_element('file', content=self.current),
+            generate_xml_element('file', content=self.current_image),
         ])
         return indent_text(generated_text, indent=indent)
 
     def generate_transition(self, indent: int = 0):
         generated_text = generate_xml_element('transition', content=[
             generate_xml_element('duration', content='%.1f' % self.transition_sec),
-            generate_xml_element('from', content=self.current),
-            generate_xml_element('to', content=self.next),
+            generate_xml_element('from', content=self.current_image),
+            generate_xml_element('to', content=self.next_image),
         ])
         return indent_text(generated_text, indent=indent)
