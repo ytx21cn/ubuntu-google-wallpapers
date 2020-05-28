@@ -4,7 +4,7 @@ from os.path import abspath, basename, expanduser, isdir
 from sys import stderr
 
 from utils import safe_mkdir, safe_link
-from xml_params import get_bg_properties_xml_header, get_unix_start_time, Wallpaper, WallpaperImage, Slide
+from xml_params import get_xml_header, get_unix_start_time, Wallpaper, WallpaperImage, Slide
 from xml_print import generate_xml_element, generate_xml_comment
 from img_parser import image_exts
 
@@ -15,7 +15,7 @@ for i in [bg_dir, bg_properties_dir]:
 
 images_dir_name = 'images'
 
-XML_header = get_bg_properties_xml_header()
+XML_header = get_xml_header()
 
 
 def main():

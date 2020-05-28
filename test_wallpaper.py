@@ -1,9 +1,9 @@
-from xml_params import get_bg_properties_xml_header, Wallpaper, WallpaperImage
+from xml_params import get_xml_header, Wallpaper, WallpaperImage
 from xml_print import generate_xml_element, print_indented
 
 
 def test_wallpaper():
-    print(get_bg_properties_xml_header())
+    print(get_xml_header())
 
     sample_slideshow = Wallpaper('/usr/share/backgrounds/contest/focal.xml', name='Ubuntu')
     sample_image = WallpaperImage('/usr/share/backgrounds/warty-final-ubuntu.png')

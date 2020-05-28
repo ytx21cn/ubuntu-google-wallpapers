@@ -2,9 +2,9 @@ from os.path import basename, splitext
 from xml_print import indent_text, generate_xml_element
 
 
-def get_bg_properties_xml_header():
+def get_xml_header():
     """
-    The XML XML_header for the GNOME Background Properties XML files.
+    The header for the XML files.
     """
     return '<?xml version="1.0" encoding="UTF-8"?>\n'\
            '<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">'
@@ -21,9 +21,9 @@ class Wallpaper:
     def get_wallpaper_title(cls, src_str: str):
         """
         Convert a source string to the title format.
-        - Convert all underscores to spaces
-        - Compress consecutive spaces
-        - Remove leading and trailing whitespaces
+        - Convert all underscores to spaces.
+        - Compress consecutive spaces.
+        - Remove leading and trailing whitespaces.
         """
 
         # remove leading and trailing whitespaces
