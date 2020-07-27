@@ -26,7 +26,7 @@ def print_indented(text: str, indent: int = 0, file=stdout):
 
 
 def generate_xml_element(tag: str, content: str or list = None,
-                         attrs: dict = None, block: bool = False,
+                         attrs: dict = {}, block: bool = False,
                          indent: int = 0) -> str:
     """
     Generate an XML element.
